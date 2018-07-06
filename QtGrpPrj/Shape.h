@@ -18,7 +18,7 @@ class Shape
 {
 
 public:
-    Shape(int id) {this->id = id;}
+    Shape(int id);
     virtual ~Shape() {}
     void updateDimensions(const vector<int>& dims);
     virtual void paintEvent(QPaintEvent* event, QWidget* canvas) = 0;
@@ -30,7 +30,7 @@ public:
     void setPenJoinStyle(Qt::PenJoinStyle joinStyle);
     void setBrushColor(QColor color);
     void setBrushStyle(Qt::BrushStyle style);
-
+    QPainter* pPainter;
 private:
     int id;
 

@@ -12,6 +12,15 @@ using namespace myShapes;
 	Shape Class
 
 *********************************************************************************/
+Shape::Shape(int id) : id(id)
+{
+    penWidth = 5;
+    penStyle = Qt::SolidLine;
+    penCapStyle = Qt::FlatCap;
+    penJoinStyle = Qt::MiterJoin;
+    penColor = QColor("black");
+}
+
 
 void Shape::updateDimensions(const vector<int>& dims)
 {
@@ -55,11 +64,12 @@ void  Shape::setBrushStyle(Qt::BrushStyle style)
 
 const QPen& Shape::getPen()
 {
+    pen.setWidth(penWidth);
     pen.setColor(penColor);
     pen.setCapStyle(penCapStyle);
     pen.setJoinStyle(penJoinStyle);
     pen.setStyle(penStyle);
-
+    pen = QPen(penColor, penWidth, penStyle, penCapStyle, penJoinStyle);
     return pen;
 }
 

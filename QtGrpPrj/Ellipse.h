@@ -8,6 +8,7 @@
 
 #include "Shape.h"
 namespace myShapes {
+
 class Ellipse : public Shape
 {
 
@@ -18,5 +19,6 @@ public:
 private:
 
 };
+
 }
 #endif //!ELLIPSE_H

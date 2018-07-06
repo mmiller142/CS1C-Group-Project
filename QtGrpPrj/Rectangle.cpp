@@ -15,15 +15,16 @@ using namespace myShapes;
 
 void Rectangle::paintEvent(QPaintEvent* /*event*/, QWidget* canvas)
 {
-    QPainter painter(canvas);
+    const int size = dims.size();
+    if(4 > size)
+        return;//not enough ints to define 2 points
 
-    setPenColor(QColor("black"));
-    painter.setPen(getPen());
-    painter.setBrush(getBrush());
+    pPainter->setPen(getPen());
+    pPainter->setBrush(getBrush());
     QPoint topLeft(dims[0], dims[1]);
     QPoint bottomRight(dims[2], dims[3]);
     QRect rect(topLeft, bottomRight);
 
-    painter.drawRect(rect);
+    pPainter->drawRect(rect);
 }
 

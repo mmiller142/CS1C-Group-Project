@@ -22,7 +22,8 @@ public:
 		if (nullptr != elem)
 		{
 			space = INIT_SIZE;
-		}
+//            size_v = INIT_SIZE;
+        }
 	}
 
     explicit vector(int s) // alternate constructor
@@ -90,8 +91,8 @@ public:
 	T& operator[] (int n) // access: return reference
 	{
 		//Verify n is in the range of the array
-		if (0 > n || !(n < size_v))
-			throw new std::out_of_range{ "invalid index" };
+//        if (0 > n || !(n < size_v))
+//            throw new std::out_of_range{ "invalid index" };
 
 		return *(elem + n); //Return a reference to the nth element
 	}

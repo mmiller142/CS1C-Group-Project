@@ -29,7 +29,11 @@ SOURCES += \
     Ellipse.cpp \
     Rectangle.cpp \
     Shape.cpp \
-    Canvas.cpp
+    Canvas.cpp \
+    Line.cpp \
+    Polyline.cpp \
+    Polygon.cpp \
+    Text.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -37,7 +41,11 @@ HEADERS += \
     Ellipse.h \
     Rectangle.h \
     Shape.h \
-    Canvas.h
+    Canvas.h \
+    Line.h \
+    Polyline.h \
+    Polygon.h \
+    Text.h
 
 #FORMS += \
 #        mainwindow.ui
