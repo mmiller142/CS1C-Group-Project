@@ -18,15 +18,19 @@ public:
 
     virtual void paintEvent(QPaintEvent* event);
     void setTextString(std::string text);
-    void setAlignment(int alignment);
+    void setAlignment(Qt::AlignmentFlag alignment);
+    void setAlignment(std::string alignment);
     void setPointSize(int pointSize);
+    void setPointSize(std::string pointSize);
     void setFontFamily(std::string fontFamily);
     void setfontStyle(QFont::Style style);
+    void setfontStyle(std::string style);
     void setFontWeight(QFont::Weight weight);
+    void setFontWeight(std::string weight);
 
 private:
     std::string textString;
-    int alignment;
+    Qt::AlignmentFlag alignment;
     int pointSize;
     std::string fontFamily;
     QFont::Style fontStyle;

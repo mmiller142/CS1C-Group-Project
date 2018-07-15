@@ -14,13 +14,18 @@
 #include <QWidget>
 
 namespace myShapes {
+
+const std::string SHAPE_NAMES[9] = {"none", "line", "polyline", "polygon", "rectangle", "square", "ellipse", "circle", "text" };
+
 class Shape
 {
 
 public:
+    enum Shapes {none, line, polyline, polygon, rectangle, square, ellipse, circle, text };
     Shape(int id);
     virtual ~Shape() {}
     virtual void updateDimensions(const vector<int>& dims);
+    virtual void updateDimensions(const std::string dimStr);
     virtual void paintEvent(QPaintEvent* event) = 0;
 
     void setPenColor(QColor color);
@@ -39,14 +44,14 @@ public:
     void setBrushStyle(std::string style); //converts string to brushstyle enum
 
     static Shape* makeShape(std::string id, std::string shapeToMake);
-
+    static Shape* makeShape(int id, Shapes shapeEnum);
+    int getId() const {return id;}
     QPainter* pPainter;
 private:
     int id;
 
     QPen pen;
     QColor penColor;
-    int penWidth;
     Qt::PenStyle penStyle;
     Qt::PenCapStyle penCapStyle;
     Qt::PenJoinStyle penJoinStyle;
@@ -60,6 +65,8 @@ protected:
 
     const QPen& getPen();
     const QBrush& getBrush();
+    void drawId(QRect rect);
+    int penWidth;
 
 };
 

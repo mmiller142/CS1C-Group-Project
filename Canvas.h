@@ -13,7 +13,6 @@ class Canvas : public QWidget
     Q_OBJECT
 
 public:
-    enum Shape { Line, Polyline, Polygon, Rect, Ellipse, Text };
 
     explicit Canvas(QWidget *parent = nullptr);
     ~Canvas();
@@ -26,9 +25,13 @@ protected:
 signals:
 
 public slots:
+    void addShape();
 
 private:
-    vector<myShapes::Shape*> shapes;
+    myShapes::vector<myShapes::Shape*> shapes;
+    void testShapes();
+    int getNextId();
+
 };
 
 #endif // CANVAS_H

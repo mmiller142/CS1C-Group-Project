@@ -25,12 +25,41 @@ Shape::Shape(int id) : id(id)
     penCapStyle = Qt::FlatCap;
     penJoinStyle = Qt::MiterJoin;
     penColor = QColor("black");
+    brushColor = QColor("white");
+    brushStyle = Qt::SolidPattern;
 }
 
 
 void Shape::updateDimensions(const vector<int>& dims)
 {
     this->dims = dims;
+}
+
+void Shape::updateDimensions(const std::string dimStr)
+{
+    std::string subDim = "";
+    vector<int> newDims;
+    //parse dimStr for integers
+    int len = dimStr.length();
+    for(int i = 0; i < len; i++)
+    {
+        char c = dimStr[i];
+        if(c < '0' || c > '9')//negative numbers are not allowed
+        {
+            if(0 < subDim.length())
+            {
+                newDims.push_back(stoi(subDim));
+                subDim.clear();
+            }
+        }
+        else
+            subDim += c;
+
+    }
+    if(0 < subDim.length())
+        newDims.push_back(stoi(subDim));
+
+    dims = newDims;
 }
 
 void Shape::setPenColor(QColor color)
@@ -199,33 +228,51 @@ const QBrush& Shape::getBrush()
 Shape* Shape::makeShape(std::string idStr, std::string shapeToMake)
 {
     int id = stoi(idStr);
-    std::transform(shapeToMake.begin(), shapeToMake.end(), shapeToMake.begin(), toupper);
+    std::transform(shapeToMake.begin(), shapeToMake.end(), shapeToMake.begin(), tolower);
+    int index = 0;
+    for(; index < 9; index++)
+    {
+        if(shapeToMake == SHAPE_NAMES[index])
+            break;
+    }
+    if(9 == index)
+        return nullptr;
 
-    Shape* pShape = nullptr;
+    return makeShape(id, static_cast<Shapes>(index));
+}
 
-    if(shapeToMake == "LINE")
-        pShape = new Line(id);
 
-    else if(shapeToMake == "POLYLINE")
-        pShape = new Polyline(id);
+Shape* Shape::makeShape(int id, Shapes shapeEnum)
+{
+    switch (shapeEnum) {
+    case line:
+       return new Line(id);
+    case polyline:
+       return new Polyline(id);
+    case polygon:
+       return new Polygon(id);
+    case ellipse:
+       return new Ellipse(id);
+    case circle:
+       return new Ellipse(id, true);
+    case rectangle:
+       return new Rectangle(id);
+    case square:
+       return new Rectangle(id, true);
+    case text:
+       return new Text(id);
+    default:
+       return nullptr;
+    }
+}
 
-    else if(shapeToMake == "ELLIPSE")
-        pShape = new Ellipse(id);
+void Shape::drawId(QRect rect)
+{
 
-    else if(shapeToMake == "CIRCLE")
-        pShape = new Ellipse(id, true);
+    QPen tPen = getPen();
+    tPen.setColor(QColor("black"));
+    pPainter->setPen(tPen);
+    pPainter->setFont(QFont(QObject::tr("arial"), 15, QFont::Bold));
+    pPainter->drawText(rect, Qt::AlignHCenter, QObject::tr(std::to_string(id).c_str()));
 
-    else if(shapeToMake == "RECTANGLE")
-        pShape = new Rectangle(id);
-
-    else if(shapeToMake == "SQUARE")
-        pShape = new Rectangle(id, true);
-
-    else if(shapeToMake == "POLYGON")
-        pShape = new Polygon(id);
-
-    else if(shapeToMake == "TEXT")
-        pShape = new Text(id);
-
-    return pShape;
 }

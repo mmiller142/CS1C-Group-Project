@@ -1,47 +1,48 @@
-// Ellipse.h
+// Rectangle.h
 // CS-1C Summer 2018
 // Team C+++++
 // Group Project
 
-#include "Ellipse.h"
+#include "Rectangle.h"
 
 using namespace myShapes;
 
 /*******************************************************************************
 
-	Ellipse Class
+	Rectangle Class
 
 *********************************************************************************/
 
-void Ellipse::paintEvent(QPaintEvent* /*event*/)
+void Rectangle::paintEvent(QPaintEvent* /*event*/)
 {
     const int size = dims.size();
-    if((3 > size && isCircle) || (4 > size && !isCircle))
+    if((3 > size && isSquare) || (4 > size && !isSquare))
         return;//not enough ints to define 2 points
 
     pPainter->setPen(getPen());
     pPainter->setBrush(getBrush());
-    int xCoordTL = dims[0];
-    int yCoordTL = dims[1];
 
     //Set bounding box corners
-    QPoint topLeft(xCoordTL, yCoordTL);
+    QPoint topLeft;
     QPoint bottomRight;
-    if(isCircle)
+    if(isSquare)
     {
-        int diameter = dims[2];
-        bottomRight.setX(xCoordTL + diameter);
-        bottomRight.setY(yCoordTL + diameter);
+        topLeft.setX(dims[0]);
+        topLeft.setY(dims[1]);
+
+        bottomRight.setX(dims[0] + dims[2]);
+        bottomRight.setY(dims[1] + dims[2]);
     }
     else
     {
-        int width = dims[2];
-        int height = dims[3];
-        bottomRight.setX(xCoordTL + width);
-        bottomRight.setY(yCoordTL + height);
+        topLeft.setX(dims[0]);
+        topLeft.setY(dims[1]);
+        bottomRight.setX(dims[0] + dims[2]);
+        bottomRight.setY(dims[1] + dims[3]);
     }
     QRect rect(topLeft, bottomRight);
-    pPainter->drawEllipse(rect);
+
+    pPainter->drawRect(rect);
 
     //draw the id
     topLeft.setY(bottomRight.y() + penWidth);
@@ -49,3 +50,4 @@ void Ellipse::paintEvent(QPaintEvent* /*event*/)
     QRect rectId(topLeft, bottomRight);
     drawId(rectId);
 }
+

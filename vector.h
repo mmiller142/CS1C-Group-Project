@@ -5,6 +5,8 @@
 #include <exception>
 #include <algorithm>    // std::swap
 #include <stdexcept>      // std::out_of_range
+namespace myShapes
+{
 
 template<typename T>
 class vector
@@ -22,10 +24,11 @@ public:
 		if (nullptr != elem)
 		{
 			space = INIT_SIZE;
-		}
+//            size_v = INIT_SIZE;
+        }
 	}
 
-	explicit vector(int s) // alternate constructor
+    explicit vector(int s) // alternate constructor
 	:size_v{ 0 }, space{ 0 }
 	{
 		elem = new T[s];
@@ -35,7 +38,7 @@ public:
 		}
 	}
 
-	vector(const vector& otherV) // copy constructor
+    vector(const vector& otherV) // copy constructor
 	{
 		try
 		{
@@ -47,9 +50,9 @@ public:
 		}
 	}
 
-	vector<T>& operator=(const vector& otherV) // copy assignment
+    vector<T>& operator=(const vector& otherV) // copy assignment
 	{
-		if (this != otherV)
+        if (this != &otherV)
 		{
 			cleanUp();
 			copyFrom(otherV);
@@ -58,7 +61,7 @@ public:
 		return *this;
 	}
 
-	vector(const vector&& otherV) // move constructor
+    vector(const vector&& otherV) // move constructor
 	:size_v{ 0 }, space{ 0 }, elem{ nullptr }
 	{
 		size_v = otherV.size_v;
@@ -68,7 +71,7 @@ public:
 		otherV.cleanUp();
 	}
 
-	vector<T>& operator=(const vector&& otherV) // move assignment
+    vector<T>& operator=(const vector&& otherV) // move assignment
 	{
 		if (this != otherV)
 		{
@@ -82,7 +85,7 @@ public:
 		return *this;
 	}
 	
-	~vector() // destructor
+    ~vector() // destructor
 	{
 		cleanUp();
 	}
@@ -90,8 +93,8 @@ public:
 	T& operator[] (int n) // access: return reference
 	{
 		//Verify n is in the range of the array
-		if (0 > n || !(n < size_v))
-			throw new std::out_of_range{ "invalid index" };
+//        if (0 > n || !(n < size_v))
+//            throw new std::out_of_range{ "invalid index" };
 
 		return *(elem + n); //Return a reference to the nth element
 	}
@@ -130,10 +133,6 @@ public:
 		for (int index = 0; index < newsize; index++)
 			*(tempElem + index) = *(elem + index);
 
-		//Delete elements greater than newsize (if any)
-		for (int index = newsize; index < size_v; index++)
-			delete *(elem + index);
-
 		delete[] elem;
 
 		//Switch elem to the new array and delete the old array
@@ -145,7 +144,7 @@ public:
 			size_v = space;
 	}
 
-	void push_back(T t) // add element
+    void push_back(T t) // add element
 	{
 		//Verify there is enough room to add to the end, grow if reqiured
 		if (size_v == space)
@@ -158,7 +157,7 @@ public:
 	void reserve(int newalloc) // get more space
 	{
 		if (space >= newalloc)
-			return;//reserve is not allowed to shrink the vector
+            return;//reserve is not allowed to shrink the vector
 
 				   //Make a larger array
 		T* tempElem = new T[newalloc];
@@ -237,7 +236,7 @@ public:
 
 
 private:
-	void copyFrom(const vector& otherV)//Helper function to support copy constructors and assignment operators
+    void copyFrom(const vector& otherV)//Helper function to support copy constructors and assignment operators
 	{
 		elem = new T[otherV.space];
 		if (nullptr == elem)
@@ -258,5 +257,6 @@ private:
 	}
 
 };
+}
 
 #endif //!VECTOR_H
