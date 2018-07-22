@@ -15,6 +15,7 @@ class Ellipse : public Shape
 public:
     Ellipse(int id, bool isCircle = false) : Shape(id), isCircle{isCircle} {}
     virtual void paintEvent(QPaintEvent* event);
+    virtual Shapes getShapeType() const {return isCircle ? circle : ellipse;}
 
 private:
     bool isCircle;

@@ -15,6 +15,9 @@ using namespace myShapes;
 
 void Ellipse::paintEvent(QPaintEvent* /*event*/)
 {
+    if(nullptr == pPainter)
+        return;
+
     const int size = dims.size();
     if((3 > size && isCircle) || (4 > size && !isCircle))
         return;//not enough ints to define 2 points

@@ -28,7 +28,7 @@ public:
     virtual void updateDimensions(const std::string dimStr);
     virtual void paintEvent(QPaintEvent* event) = 0;
 
-    void setPenColor(QColor color);
+    //void setPenColor(QColor color);
     void setPenColor(std::string color); //Takes a color name (e.g. black or blue, etc.)
     void setPenWidth(int width);
     void setPenWidth(std::string width); //converts string value to integer
@@ -38,7 +38,7 @@ public:
     void setPenCapStyle(std::string capStyle); //converts string to capstyle enum
     void setPenJoinStyle(Qt::PenJoinStyle joinStyle);
     void setPenJoinStyle(std::string joinStyle); //converts string to joinstyle enum
-    void setBrushColor(QColor color);
+    //void setBrushColor(QColor color);
     void setBrushColor(std::string color); //Takes a color name (e.g. black or blue, etc.)
     void setBrushStyle(Qt::BrushStyle style);
     void setBrushStyle(std::string style); //converts string to brushstyle enum
@@ -47,20 +47,30 @@ public:
     static Shape* makeShape(int id, Shapes shapeEnum);
     int getId() const {return id;}
     QPainter* pPainter;
+
+    virtual void getShapeData(QStringList& shapeData) const;
+    virtual Shapes getShapeType() const {return none;}
+    virtual std::string getShapeTypeString() const {return SHAPE_NAMES[getShapeType()];}
+
+    std::string getPenStyleString() const;
+    std::string getPenCapString() const;
+    std::string getPenJoinString() const;
+    std::string getBrushStyleString() const;
+
 private:
-    int id;
 
     QPen pen;
-    QColor penColor;
     Qt::PenStyle penStyle;
     Qt::PenCapStyle penCapStyle;
     Qt::PenJoinStyle penJoinStyle;
 
     QBrush brush;
-    QColor brushColor;
+    std::string brushColor;
     Qt::BrushStyle brushStyle;
 
 protected:
+    int id;
+    std::string penColor;
     vector<int> dims; //shape dimensions
 
     const QPen& getPen();

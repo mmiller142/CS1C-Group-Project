@@ -7,6 +7,8 @@
 #include "Text.h"
 #include "formaddshape.h"
 #include "parser.h"
+#include "reportdialog.h"
+#include "deleteshapedialog.h"
 
 using namespace myShapes;
 
@@ -34,6 +36,7 @@ void Canvas::paintEvent(QPaintEvent * event)
         myShapes::Shape* pShape = shapes[i];
         pShape->pPainter = &painter;
         pShape->paintEvent(event);
+        pShape->pPainter = nullptr;
     }
 }
 
@@ -174,7 +177,7 @@ void Canvas::testShapes()
     testLine->setPenStyle(lineStyle);
     capStyle = "FlatCap";
     testLine->setPenCapStyle(capStyle);
-    testLine->setPenColor(QColor("blue"));
+    testLine->setPenColor("blue");
     joinStyle = "MiterJoin";
     testLine->setPenJoinStyle(joinStyle);
     testLine->setPenWidth(2);
@@ -193,7 +196,7 @@ void Canvas::testShapes()
     testPolyline->updateDimensions(dims);
     lineStyle = "SolidLine";
     testLine->setPenStyle(lineStyle);
-    testPolyline->setPenColor(QColor("green"));
+    testPolyline->setPenColor("green");
     testPolyline->setPenWidth(6);
     joinStyle = "MiterJoin";
     testLine->setPenJoinStyle(joinStyle);
@@ -249,5 +252,43 @@ int Canvas::getNextId()
             nextId = shapeId;
     }
 
-    return nextId;
+    return ++nextId;
+}
+
+void Canvas::report()
+{
+    ReportDialog* pWidget = new ReportDialog{shapes};
+    pWidget->exec();
+
+    delete pWidget;
+}
+
+void Canvas::deleteShape()
+{
+    DeleteShapeDialog* pWidget = new DeleteShapeDialog;
+
+    int max = getNextId() - 1;
+    pWidget->setRange(1, max);
+
+    int result = pWidget->exec();
+
+    if(QDialog::Accepted == result && pWidget->selectedId != -1)
+    {
+        //Find shape with selected id
+        const int selectedId = pWidget->selectedId;
+        int count  = shapes.size();
+        for(myShapes::vector<Shape*>::iterator* pShape = shapes.begin(); pShape < shapes.end(); pShape++)
+        {
+            if(selectedId == (*pShape)->getId())
+            {
+                shapes.erase(pShape);
+                update();
+                break;
+            }
+        }
+
+    }
+
+    delete pWidget;
+
 }

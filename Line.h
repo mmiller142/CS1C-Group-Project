@@ -14,6 +14,7 @@ class Line : public Shape
 public:
     Line(int id) : Shape(id){}
     virtual void paintEvent(QPaintEvent* event);
+    virtual Shapes getShapeType() const {return line;}
 
 private:
 

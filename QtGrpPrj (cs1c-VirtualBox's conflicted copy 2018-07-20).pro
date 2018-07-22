@@ -36,9 +36,7 @@ SOURCES += \
     Text.cpp \
     formaddshape.cpp \
     parser.cpp \
-    userloginscreen.cpp \
-    reportdialog.cpp \
-    deleteshapedialog.cpp
+    userloginscreen.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,20 +51,13 @@ HEADERS += \
     Text.h \
     formaddshape.h \
     parser.h \
-    userloginscreen.h \
-    reportdialog.h \
-    deleteshapedialog.h
+    userloginscreen.h
 
 #FORMS += \
 #        mainwindow.ui
 
 DISTFILES += \
-    shapes.txt \
-    ../../QtGrpPrj/C++ Logo.jpg \
-    ../../QtGrpPrj/C++ Logo.jpg \
-    C++ Logo.jpg
+    shapes.txt
 
 FORMS += \
-    about.ui \
-    reportdialog.ui \
-    deleteshapedialog.ui
+    about.ui

@@ -15,6 +15,9 @@ using namespace myShapes;
 
 void Line::paintEvent(QPaintEvent* /*event*/)
 {
+    if(nullptr == pPainter)
+        return;
+
     const int size = dims.size();
     if(4 > size)
         return;//not enough ints to define 2 points

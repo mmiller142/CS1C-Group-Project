@@ -37,7 +37,6 @@ void parser(myShapes::vector<myShapes::Shape*> *shapeStorage)
 	ifstream fin;
 
 	int    shapeId;
-	string shapeName;
 
 	string penColor;
 	int    penWidth;
@@ -56,9 +55,9 @@ void parser(myShapes::vector<myShapes::Shape*> *shapeStorage)
 	string textFontStyle;
 	string textFontWeight;
 
-	myShapes::Shape *dummy; //where new objects are stored
 
-	myShapes::Text *pText;  //placeholder to downcast shape into text
+    myShapes::Shape *dummy = nullptr; //where new objects are stored
+    myShapes::Text *pText = nullptr;  //placeholder to downcast shape into text
 
     //moved inside the while loop vector<int> pointVector; //where points are stored
     //vector<int> resetVector; //temp fix until clean vector moved to public.
@@ -70,11 +69,13 @@ void parser(myShapes::vector<myShapes::Shape*> *shapeStorage)
 
 	while(!(fin.eof()))
 	{
-		fin.ignore(1, '\n');  //skips whitespace
+
+        fin.ignore(1, '\n');  //skips whitespace
 		fin.ignore(100, ':'); // ShapeId:
 		fin >> shapeId;
 		fin.ignore(100, ':'); //ShapeType:
-		fin >> shapeName;
+        string shapeName;
+        fin >> shapeName;
 
 		//ShapeDimensions:
         myShapes::vector<int> pointVector; //where points are stored
@@ -130,7 +131,7 @@ void parser(myShapes::vector<myShapes::Shape*> *shapeStorage)
 			setPenInfo(dummy, penColor, penWidth, penStyle, penCap, penJoin);
 			setBrushInfo(dummy, brushColor, brushStyle);
 		}
-		else{//this case is TEXT
+        else if(shapeName == "Text"){
 			pointVectorReadIn(pointVector, 4, fin);
 			fin.ignore(100, ':');
             getline(fin, textString);
@@ -159,10 +160,18 @@ void parser(myShapes::vector<myShapes::Shape*> *shapeStorage)
 			dummy = pText; //upcasts so program doesn't flip
 		}//end esleifs
 
-		dummy->updateDimensions(pointVector); //reads points into dimensions
-        //pointVector = resetVector; // resets array for next pass
+        else //valid shape not found
+        {
+            dummy = nullptr;
+        }
 
-		shapeStorage->push_back(dummy); // adds new element to shape vector
+        if(nullptr != dummy)
+        {
+            dummy->updateDimensions(pointVector); //reads points into dimensions
+            //pointVector = resetVector; // resets array for next pass
+
+            shapeStorage->push_back(dummy); // adds new element to shape vector
+        }
 	}
 
 	fin.close();

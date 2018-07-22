@@ -19,6 +19,9 @@ public:
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
 
+    void report();
+    void deleteShape();
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 
