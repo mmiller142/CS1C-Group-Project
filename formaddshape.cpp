@@ -58,6 +58,10 @@ FormAddShape::FormAddShape(QWidget *parent, int id) : QDialog(parent), pShape{nu
 
     mainLayout->setColumnStretch(0, 1);
     mainLayout->setColumnStretch(3, 1);
+    mainLayout->setColumnMinimumWidth(0, 100);
+    mainLayout->setColumnMinimumWidth(1, 215);
+    mainLayout->setColumnMinimumWidth(2, 100);
+    mainLayout->setColumnMinimumWidth(3, 215);
     mainLayout->addWidget(shapeLabel, 2, 0, Qt::AlignRight);
     mainLayout->addWidget(shapeComboBox, 2, 1);
     mainLayout->addWidget(shapeDimensionLabel, 2, 2, Qt::AlignRight);
@@ -236,6 +240,14 @@ void FormAddShape::showStandardControls(bool show)
     //If show is false than the standard shape controls need to be removed from the
     //layout and the text shape controls added.
 
+    penColorLabel->setText(show ? "Pen &Color:" : "Text &Color");
+    penWidthLabel->setText(show ? "Pen &Width:" : "Font &Height:");
+    int minWidth = (show ? 0 : 5);
+    int maxWidth = (show ? 20 : 100);
+    penWidthSpinBox->setRange(minWidth, maxWidth);
+    penWidthSpinBox->setSpecialValueText(tr(show ? "0 (cosmetic pen)" : ""));
+
+
     QGridLayout* mainLayout = dynamic_cast<QGridLayout*>(this->layout());
     mainLayout->removeWidget(show ? alignmentLabel : penCapLabel);
     mainLayout->removeWidget(show ? alignmentComboBox : penCapComboBox);
@@ -398,6 +410,7 @@ void FormAddShape::setupTextControls()
     fontWeightLabel->setBuddy(fontWeightComboBox);
 
     textStringEdit = new QLineEdit;
+    textStringEdit->setMinimumWidth(215);
 
     textStringLabel = new QLabel(tr("&Text String:"));
     textStringLabel->setBuddy(textStringEdit);

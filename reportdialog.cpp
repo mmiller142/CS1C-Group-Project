@@ -29,10 +29,7 @@ void ReportDialog::buildTable()
     ui->tableWidget->setColumnWidth(3, 60);
     ui->tableWidget->setColumnWidth(4, 50);
     ui->tableWidget->setColumnWidth(5, 100);
-
-    ui->gridLayout->setColumnStretch(0, 1);
-    ui->gridLayout->addWidget(ui->tableWidget, 0, 0, 10, 20, Qt::AlignHCenter | Qt::AlignVCenter);
-    ui->gridLayout->addWidget(ui->buttonBox, 12, 20, 1, 4, Qt::AlignRight);
+    ui->tableWidget->setStyleSheet("alternate-background-color: aliceblue");
 
     //Add Shape data
     for(int i = 0; i < shapes.size(); i++)
