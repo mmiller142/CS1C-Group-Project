@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QLineEdit>
+#include <QFontComboBox>
 #include "Shape.h"
 
 class QComboBox;
@@ -19,7 +20,7 @@ class FormAddShape : public QDialog
     Q_OBJECT
 public:
     explicit FormAddShape(QWidget *parent = nullptr, int id = 0);
-
+    ~FormAddShape();
    // QSize minimumSizeHint() const override;
    // QSize sizeHint() const override;
     Shape* pShape;
@@ -35,11 +36,13 @@ public slots:
     void brushColorChanged();
     void penChanged();
     void dimChanged();
+    void textChanged();
 protected:
 
 private:
-    QPushButton* buttonOk;
+
     QLabel *shapeLabel;
+    QLabel *shapeDimensionLabel;
     QLabel *penColorLabel;
     QLabel *penWidthLabel;
     QLabel *penStyleLabel;
@@ -47,20 +50,35 @@ private:
     QLabel *penJoinLabel;
     QLabel *brushStyleLabel;
     QLabel *brushColorLabel;
-    QLabel *shapeDimensionLabel;
     QComboBox *shapeComboBox;
     QComboBox *penStyleComboBox;
     QComboBox *penCapComboBox;
     QComboBox *penJoinComboBox;
     QComboBox *brushStyleComboBox;
-    QLineEdit *brushColorEdit;
-    QLineEdit *penColorEdit;
+    QComboBox *brushColorEdit;
+    QComboBox *penColorEdit;
     QLineEdit *shapeDimensionEdit;
     QSpinBox *penWidthSpinBox;
     QDialogButtonBox *buttonBox;
     int id;
 
+    //text controls
+    QLabel *alignmentLabel;
+    QLabel *fontFamilyLabel;
+    QLabel *fontStyleLabel;
+    QLabel *fontWeightLabel;
+    QLabel *textStringLabel;
+    QComboBox *alignmentComboBox;
+    QFontComboBox *fontFamilyComboBox;
+    QComboBox *fontStyleComboBox;
+    QComboBox *fontWeightComboBox;
+    QLineEdit *textStringEdit;
+
     void showControls(bool show);
+    void showStandardControls(bool show);
+
+    void setupShapeControls();
+    void setupTextControls();
 
 };
 }

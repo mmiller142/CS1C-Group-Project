@@ -15,6 +15,9 @@ using namespace myShapes;
 
 void Rectangle::paintEvent(QPaintEvent* /*event*/)
 {
+    if(nullptr == pPainter)
+        return;
+
     const int size = dims.size();
     if((3 > size && isSquare) || (4 > size && !isSquare))
         return;//not enough ints to define 2 points

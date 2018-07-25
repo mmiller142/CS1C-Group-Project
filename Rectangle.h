@@ -14,6 +14,7 @@ class Rectangle : public Shape
 public:
     Rectangle(int id, bool isSquare = false) : Shape(id), isSquare{isSquare} {}
     virtual void paintEvent(QPaintEvent* event);
+    virtual Shapes getShapeType() const {return isSquare ? square : rectangle;}
 
 private:
     bool isSquare;

@@ -28,6 +28,13 @@ public:
     void setFontWeight(QFont::Weight weight);
     void setFontWeight(std::string weight);
 
+    virtual void getShapeData(QStringList& shapeData) const;
+    virtual Shapes getShapeType() const {return text;}
+
+    std::string getFontStyleString() const;
+    std::string getFontWeightString() const;
+    std::string getAlignmentString() const;
+
 private:
     std::string textString;
     Qt::AlignmentFlag alignment;

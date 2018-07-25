@@ -16,6 +16,9 @@ using namespace myShapes;
 
 void Text::paintEvent(QPaintEvent* /*event*/)
 {
+    if(nullptr == pPainter)
+        return;
+
     const int size = dims.size();
     if(4 > size)
         return;//not enough ints to define 2 points
@@ -124,4 +127,79 @@ void Text::setFontWeight(std::string weight)
 QFont Text::getFont()
 {
     return QFont(QObject::tr(fontFamily.c_str()), pointSize, fontWeight, fontStyle);
+}
+
+void Text::getShapeData(QStringList& shapeData) const
+{
+
+    shapeData.append(QString::fromStdString(std::to_string(id)));
+    shapeData.append(QString::fromStdString(getShapeTypeString()));
+    std::string dimStr;
+    int count = dims.size();
+    for(int i = 0; i < count; i++)
+        dimStr.append(std::to_string(dims[i]) + " ");
+    shapeData.append(QString::fromStdString(dimStr));
+    shapeData.append(QString::fromStdString(penColor));
+    shapeData.append(QString::fromStdString(std::to_string(pointSize)));
+    shapeData.append(QString::fromStdString(getFontStyleString()));
+    shapeData.append(QString::fromStdString(getFontWeightString()));
+    shapeData.append(QString::fromStdString(textString));
+    shapeData.append(QString::fromStdString(fontFamily));
+    shapeData.append(QString::fromStdString(getAlignmentString()));
+}
+
+std::string Text::getFontStyleString() const
+{
+    switch (fontStyle) {
+    case QFont::StyleNormal:
+        return "StyleNormal";
+    case QFont::StyleItalic:
+        return "StyleItalic";
+    case QFont::StyleOblique:
+        return "StyleOblique";
+    default:
+        return "undefined";
+    }
+
+}
+
+std::string Text::getFontWeightString() const
+{
+    switch (fontWeight) {
+    case QFont::Normal:
+        return "Normal";
+    case QFont::Thin:
+        return "Thin";
+    case QFont::ExtraLight:
+        return "ExtraLight";
+    case QFont::Light:
+        return "Light";
+    case QFont::Medium:
+        return "Medium";
+    case QFont::DemiBold:
+        return "DemiBold";
+    case QFont::Bold:
+        return "Bold";
+    case QFont::ExtraBold:
+        return "ExtraBold";
+    case QFont::Black:
+        return "Black";
+    default:
+        return "undefined";
+    }
+
+}
+
+std::string Text::getAlignmentString() const
+{
+    switch (alignment) {
+    case Qt::AlignLeft:
+        return "AlignLeft";
+    case Qt::AlignRight:
+        return "AlignRight";
+    case Qt::AlignCenter:
+        return "AlignCenter";
+    default:
+        return "undefined";
+    }
 }

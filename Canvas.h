@@ -19,6 +19,9 @@ public:
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
 
+    void report();
+    void deleteShape();
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 
@@ -28,7 +31,7 @@ public slots:
     void addShape();
 
 private:
-    myShapes::vector<myShapes::Shape*> shapes;
+    myShapes::vector<myShapes::Shape*> shapes;//Example of composition, canvas includes a vector object.
     void testShapes();
     int getNextId();
 

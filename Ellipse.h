@@ -9,12 +9,13 @@
 #include "Shape.h"
 namespace myShapes {
 
-class Ellipse : public Shape
+class Ellipse : public Shape //this is an example of inheritance as ellipse is derived from shape
 {
 
 public:
     Ellipse(int id, bool isCircle = false) : Shape(id), isCircle{isCircle} {}
     virtual void paintEvent(QPaintEvent* event);
+    virtual Shapes getShapeType() const {return isCircle ? circle : ellipse;}
 
 private:
     bool isCircle;

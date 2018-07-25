@@ -15,6 +15,7 @@ class Polygon : public Shape
 public:
     Polygon(int id) : Shape(id){}
     virtual void paintEvent(QPaintEvent* event);
+    virtual Shapes getShapeType() const {return polygon;}
 
 private:
 

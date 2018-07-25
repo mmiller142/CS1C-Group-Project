@@ -15,6 +15,7 @@ class Polyline : public Shape
 public:
     Polyline(int id) : Shape(id){}
     virtual void paintEvent(QPaintEvent* event);
+    virtual Shapes getShapeType() const {return polyline;}
 
 private:
 
