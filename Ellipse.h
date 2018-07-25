@@ -9,7 +9,7 @@
 #include "Shape.h"
 namespace myShapes {
 
-class Ellipse : public Shape
+class Ellipse : public Shape //this is an example of inheritance as ellipse is derived from shape
 {
 
 public:

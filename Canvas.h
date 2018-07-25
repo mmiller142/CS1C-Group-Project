@@ -31,7 +31,7 @@ public slots:
     void addShape();
 
 private:
-    myShapes::vector<myShapes::Shape*> shapes;
+    myShapes::vector<myShapes::Shape*> shapes;//Example of composition, canvas includes a vector object.
     void testShapes();
     int getNextId();
 

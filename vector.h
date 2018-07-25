@@ -8,12 +8,12 @@
 namespace myShapes
 {
 
-template<typename T>
+template<typename T> //this an example of a templated class
 class vector
 {
 	const int INIT_SIZE = 8;
 	int size_v; // the size
-    T* elem; // a pointer to the elements
+    T* elem; // a pointer to the elements, this is an example of the pointer the copy constructor is overloaded on line 41
     int space; // size+free_space
 
 public:
@@ -44,13 +44,13 @@ public:
 		{
 			copyFrom(otherV);
 		}
-		catch (const std::exception&)
+        catch (const std::exception&) //Exmaple of an exception handler
 		{
 			//catch unlikely error if unable to allocate memory to elem
 		}
 	}
 
-    vector<T>& operator=(const vector& otherV) // copy assignment
+    vector<T>& operator=(const vector& otherV) // copy assignment, first example of operator overloading
 	{
         if (this != &otherV)
 		{
@@ -90,7 +90,7 @@ public:
 		cleanUp();
 	}
 
-	T& operator[] (int n) // access: return reference
+    T& operator[] (int n) // access: return reference, second example of operator overloading
 	{
 		//Verify n is in the range of the array
 //        if (0 > n || !(n < size_v))
