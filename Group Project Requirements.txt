@@ -1,0 +1,15 @@
+Requirement Examples
+
+Inheritance: Found in Ellipse.h line 12.
+
+Composition: Found in Canvas.h line 34.
+
+Exception Handler:	Found in vector.h line 47.
+
+Virtual function:	Found in Shape.h line 53.
+
+Overloaded Operators:	Found in vector.h line 53 and line 93.
+
+Templated Class: Found vector.h line 11.
+
+Pointer / Copy Constructor:	Found in vector.h line 16 (pointer) and line 41 (copy constructor).
