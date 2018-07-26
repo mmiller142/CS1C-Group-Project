@@ -1,0 +1,100 @@
+Script started on Wed Jul 25 21:31:47 2018
+[?1034hbash-3.2$ ls -l[K[K[K[K[Kdate
+Wed Jul 25 21:31:53 PDT 2018
+bash-3.2$ ls -l
+total 40
+-rw-r--r--  1 rt  staff   261 Jul 25 20:53 Makefile
+-rw-r--r--  1 rt  staff  6091 Jul 25 21:08 vector.h
+drwxr-xr-x  3 rt  staff    96 Jul 25 21:09 vectorTest.dSYM
+-rw-r--r--  1 rt  staff  3897 Jul 25 21:29 vectorValgrind.cpp
+-rw-r--r--  1 rt  staff    43 Jul 25 21:31 vectorValgrind.scr
+bash-3.2$ make all
+g++ -std=c++14 -Wall -g vectorValgrind.cpp -o vectorTest
+bash-3.2$ ls -l
+total 120
+-rw-r--r--  1 rt  staff    261 Jul 25 20:53 Makefile
+-rw-r--r--  1 rt  staff   6091 Jul 25 21:08 vector.h
+-rwxr-xr-x  1 rt  staff  40184 Jul 25 21:31 vectorTest
+drwxr-xr-x  3 rt  staff     96 Jul 25 21:09 vectorTest.dSYM
+-rw-r--r--  1 rt  staff   3897 Jul 25 21:29 vectorValgrind.cpp
+-rw-r--r--  1 rt  staff     43 Jul 25 21:31 vectorValgrind.scr
+bash-3.2$ ./va[K[K[K[K./vectorTest
+Size : 5
+Capacity : 8
+Size : 4
+Vector is empty
+Vector1 elements are: 1 2 3 4 
+
+Using Overloaded copy operator to copy Vector1 into Vector2
+
+Vector2 elements are: 1 2 3 4 
+
+Deleting all the elements of vector1.
+
+
+Checking to see if intVector1 is empty?
+
+Vector is emptySize : 2
+Capacity : 4
+Vector3 elements are: one two three four five six seven 
+
+Vector3 Size : 7
+Vector3 Capacity : 8
+
+Adding two more element on Vector3, to check if the capacity gets doubled..
+
+Vector3 Size : 9
+Vector3 Capacity : 16
+Vector3 elements are: one two three four five six seven eight nine 
+bash-3.2$ ./vectorTestv./vectorTesta./vectorTestl./vectorTestg./vectorTestr./vectorTesti./vectorTestn./vectorTestd./vectorTest ./vectorTest
+==2507== Memcheck, a memory error detector
+==2507== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2507== Using Valgrind-3.14.0.GIT and LibVEX; rerun with -h for copyright info
+==2507== Command: ./vectorTest
+==2507== 
+Size : 5
+Capacity : 8
+Size : 4
+Vector is empty
+Vector1 elements are: 1 2 3 4 
+
+Using Overloaded copy operator to copy Vector1 into Vector2
+
+Vector2 elements are: 1 2 3 4 
+
+Deleting all the elements of vector1.
+
+
+Checking to see if intVector1 is empty?
+
+Vector is emptySize : 2
+Capacity : 4
+Vector3 elements are: one two three four five six seven 
+
+Vector3 Size : 7
+Vector3 Capacity : 8
+
+Adding two more element on Vector3, to check if the capacity gets doubled..
+
+Vector3 Size : 9
+Vector3 Capacity : 16
+Vector3 elements are: one two three four five six seven eight nine 
+==2507== 
+==2507== HEAP SUMMARY:
+==2507==     in use at exit: 22,368 bytes in 163 blocks
+==2507==   total heap usage: 190 allocs, 27 frees, 31,504 bytes allocated
+==2507== 
+==2507== LEAK SUMMARY:
+==2507==    definitely lost: 0 bytes in 0 blocks
+==2507==    indirectly lost: 0 bytes in 0 blocks
+==2507==      possibly lost: 72 bytes in 3 blocks
+==2507==    still reachable: 4,296 bytes in 7 blocks
+==2507==         suppressed: 18,000 bytes in 153 blocks
+==2507== Rerun with --leak-check=full to see details of leaked memory
+==2507== 
+==2507== For counts of detected and suppressed errors, rerun with: -v
+==2507== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+bash-3.2$ exit
+exit
+
+Script done on Wed Jul 25 21:32:33 2018
